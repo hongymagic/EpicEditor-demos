@@ -19,10 +19,11 @@
 
 // And the ** postfix
 
-			range.collapse();
+			range.collapse(false);
 			selection.removeAllRanges();
 			selection.addRange(range);
 			range.insertNode(document.createTextNode('**'));
+
 		},
 
 		italic: function (editor, selection) {
