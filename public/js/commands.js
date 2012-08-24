@@ -12,14 +12,15 @@
 			postfix = prefix;
 		}
 
-// Insert the ** prefix
+// Insert the prefix
 
 		var range = selection.getRangeAt(0);
 		range.insertNode(document.createTextNode(prefix));
 
-// And the ** postfix
-
 		range.collapse(false);
+
+// And the postfix
+
 		selection.removeAllRanges();
 		selection.addRange(range);
 		range.insertNode(document.createTextNode(postfix));
