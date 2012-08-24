@@ -1,0 +1,5 @@
+#epiceditor             { min-height: 300px; }
+#toolbar                { margin: 10px 0; padding: 5px; border-bottom: 1px solid #ccc; }
+
+[data-command="bold"]   { font-weight: bold; }
+[data-command="italic"] { text-transform: italic; }

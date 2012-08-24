@@ -1,0 +1,16 @@
+{
+  "name": "epiceditor-demos",
+  "version": "0.0.1",
+  "engines": {
+    "node": "0.x",
+    "npm": "1.x"
+  },
+  "dependencies": {
+    "statik": ">= 1.0.0"
+  },
+  "main": "server.js",
+  "subdomain": "epiceditor-demos",
+  "scripts": {
+    "start": "server.js"
+  }
+}
