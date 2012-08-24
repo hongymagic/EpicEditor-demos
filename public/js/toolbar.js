@@ -1,42 +1,13 @@
 (function (window, document) {
 	"use strict";
 
-// A very simple command set: bold, italic with no apparent interface...
-// This is just a demo, so if you really wish to use Command pattern for this
-// please do so.
-
-	var Commands = Object.create(null);
-	Commands = {
-		bold: function (editor, selection) {
-			if (selection.rangeCount === 0) {
-				return;
-			}
-
-// Insert the ** prefix
-
-			var range = selection.getRangeAt(0);
-			range.insertNode(document.createTextNode('**'));
-
-// And the ** postfix
-
-			range.collapse(false);
-			selection.removeAllRanges();
-			selection.addRange(range);
-			range.insertNode(document.createTextNode('**'));
-
-		},
-
-		italic: function (editor, selection) {
-			console.log('italic', editor, selection);
-		}
-	};
-
 // Define a Toolbar object which deals with commands issued to an instance
 // of EpicEditor.
 
-	var Toolbar = function (id, editor) {
+	var Toolbar = function (id, editor, commands) {
 		this.container = document.getElementById(id);
 		this.editor = editor;
+		this.commands = commands;
 
 		if (!id) {
 			throw new Error('Unable to find toolbar container: ' + id);
@@ -48,7 +19,6 @@
 
 // Let's hard wire in the commands list for now
 
-		this.commands = Commands;
 
 // Tap into HTML's data-command attribute and trigger command on click
 

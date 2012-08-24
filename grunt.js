@@ -8,7 +8,7 @@ module.exports = function (grunt) {
 		pkg: '<json:package.json>',
 
 		lint: {
-			all: ['server.js', 'grunt.js', 'public/js/**/*.js']
+			all: ['*.js', 'public/js/*.js']
 		},
 
 		docs: {
@@ -19,6 +19,28 @@ module.exports = function (grunt) {
 			scripts: {
 				files: '<config:lint.all>',
 				tasks: 'lint concat min'
+			}
+		},
+
+// Build javascript files into one
+
+		concat: {
+			dist: {
+				src: [
+					'public/epiceditor/js/epiceditor.js',
+					'public/js/commands.js',
+					'public/js/toolbar.js',
+					'public/js/main.js'
+				],
+				dest: 'public/js/dist/main.js',
+				separator: ';\n'
+			}
+		},
+
+		min: {
+			dist: {
+				src: ['public/js/dist/main.js'],
+				dest: 'public/js/dist/main.min.js'
 			}
 		},
 
@@ -33,6 +55,6 @@ module.exports = function (grunt) {
 
 // Default grunt task
 
-	grunt.registerTask('default', 'lint');
+	grunt.registerTask('default', 'lint concat min');
 
 };
