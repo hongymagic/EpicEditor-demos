@@ -2108,15 +2108,26 @@ if (typeof module !== 'undefined') {
   return this || (typeof window !== 'undefined' ? window : global);
 }());
 ;
-(function (window, document) {
+(function (window) {
 	"use strict";
 
 // A simple helper function to insert prefix + postfix in the selection range
 
-	function surroundWith(selection, prefix, postfix) {
+	function surroundWith(document, selection, prefix, postfix) {
+
+// If no document is given, use the default window.document
+
+		if (document === null || document === undefined) {
+			document = window.document;
+		}
+
+// If no selection is made, nothing to do
+
 		if (selection.rangeCount === 0) {
 			return;
 		}
+
+// If postfix is not given, let prefix == postfix
 
 		if (!postfix) {
 			postfix = prefix;
@@ -2144,20 +2155,20 @@ if (typeof module !== 'undefined') {
 	var Commands = Object.create(null);
 	Commands = {
 		bold: function (editor, selection) {
-			surroundWith(selection, '**');
+			surroundWith(editor.editorIframeDocument, selection, '**');
 		},
 
 		italic: function (editor, selection) {
-			surroundWith(selection, '*');
+			surroundWith(editor.editorIframeDocument, selection, '*');
 		},
 
 		code: function (editor, selection) {
-			surroundWith(selection, '`');
+			surroundWith(editor.editorIframeDocument, selection, '`');
 		}
 	};
 
 	window.DefaultCommands = Commands;
-}(window, window.document));
+}(window));
 ;
 (function (window, document) {
 	"use strict";
@@ -2185,7 +2196,7 @@ if (typeof module !== 'undefined') {
 
 		this.container.addEventListener('click', function (event) {
 			var target = event.target;
-			var command = target.dataset['command'];
+			var command = target.getAttribute('data-command');
 			this.executeCommand(command);
 		}.bind(this), false);
 	};

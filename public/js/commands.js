@@ -1,12 +1,23 @@
-(function (window, document) {
+(function (window) {
 	"use strict";
 
 // A simple helper function to insert prefix + postfix in the selection range
 
-	function surroundWith(selection, prefix, postfix) {
+	function surroundWith(document, selection, prefix, postfix) {
+
+// If no document is given, use the default window.document
+
+		if (document === null || document === undefined) {
+			document = window.document;
+		}
+
+// If no selection is made, nothing to do
+
 		if (selection.rangeCount === 0) {
 			return;
 		}
+
+// If postfix is not given, let prefix == postfix
 
 		if (!postfix) {
 			postfix = prefix;
@@ -34,17 +45,17 @@
 	var Commands = Object.create(null);
 	Commands = {
 		bold: function (editor, selection) {
-			surroundWith(selection, '**');
+			surroundWith(editor.editorIframeDocument, selection, '**');
 		},
 
 		italic: function (editor, selection) {
-			surroundWith(selection, '*');
+			surroundWith(editor.editorIframeDocument, selection, '*');
 		},
 
 		code: function (editor, selection) {
-			surroundWith(selection, '`');
+			surroundWith(editor.editorIframeDocument, selection, '`');
 		}
 	};
 
 	window.DefaultCommands = Commands;
-}(window, window.document));
+}(window));

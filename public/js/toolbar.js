@@ -24,7 +24,7 @@
 
 		this.container.addEventListener('click', function (event) {
 			var target = event.target;
-			var command = target.dataset['command'];
+			var command = target.getAttribute('data-command');
 			this.executeCommand(command);
 		}.bind(this), false);
 	};
